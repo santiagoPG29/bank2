@@ -1,6 +1,7 @@
 //clase inventario
 package application.domain.models;
 
+import application.domain.models.enums.InventoryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ public class Inventory extends Store {
     
     private String name;
     private int quantity;
-    private String estado;
+    private InventoryStatus estado;
 
 
 

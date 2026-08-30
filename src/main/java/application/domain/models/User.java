@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-import application.domain.valueObjects.UserStatus;
+import application.domain.models.enums.UserStatus;
 
 
 @NoArgsConstructor

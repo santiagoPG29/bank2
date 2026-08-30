@@ -1,4 +1,4 @@
-package application.domain.valueObjects;
+package application.domain.models.enums;
 
 public enum UserStatus {
     ACTIVE,

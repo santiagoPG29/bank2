@@ -1,7 +1,7 @@
 //clase producto
 package application.domain.models;
 
-
+import application.domain.models.enums.ProductType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public abstract class Producto extends Merchants {
     private long id;
     private String name;
-    private String productType;
+    private ProductType productType;
 
     
     public void post() {

@@ -1,6 +1,7 @@
 //clase comprador 
 package application.domain.models;
 
+import application.domain.models.enums.TradingStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Setter
 public abstract class Buyer extends User {
     private String mainAddress;
-    private String tradingStatus;
+    private TradingStatus tradingStatus;
     private User user;
 ;
 
