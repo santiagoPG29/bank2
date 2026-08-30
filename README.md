@@ -1,10 +1,10 @@
-# bank2
+# NEXUSMARKET
 
-Proyecto de backend desarrollado con Java y Spring Boot para modelar un sistema de comercio electrónico con usuarios, productos, pedidos, inventario, pagos, entregas y devoluciones.
+Proyecto de backend desarrollado con Java para modelar un sistema de comercio electrónico con usuarios, productos, pedidos, inventario, pagos, entregas y devoluciones.
 
 ## Descripción general
 
-Este proyecto representa un dominio de negocio orientado a un marketplace o sistema de e-commerce. Su objetivo principal es estructurar las entidades y responsabilidades del negocio alrededor de procesos como:
+Este proyecto representa un dominio de negocio orientado a un marketplace. Su objetivo principal es estructurar las entidades y responsabilidades del negocio alrededor de procesos como:
 
 - gestión de usuarios y roles
 - compras y carrito
@@ -15,19 +15,7 @@ Este proyecto representa un dominio de negocio orientado a un marketplace o sist
 - entregas
 - devoluciones y reembolsos
 
-La aplicación está construida con Spring Boot y sigue una organización por paquetes de dominio, donde cada clase corresponde a una entidad o concepto del negocio.
-
-## Tecnologías
-
-- Java 17
-- Spring Boot 4.1.1
-- Maven
-- Spring Web
-- Spring Data JPA
-- Spring Data MongoDB
-- Spring Security
-- MySQL
-- Lombok
+sigue una organización por paquetes de dominio, donde cada clase corresponde a una entidad o concepto del negocio.
 
 ## Estructura del proyecto
 
@@ -102,7 +90,7 @@ Representa a cualquier usuario registrado dentro del sistema de comercio. Esta c
 - Un `User` puede especializarse en `Buyer`, `Merchants`, `Administrator`, `InCharge` o `LogisticsP`.
 - `UserStatus` define el estado del usuario.
 
----
+-----------------------------------------------------
 
 # Buyer (Resumen)
 
@@ -124,7 +112,7 @@ Representa al cliente comprador dentro del sistema. Extiende la información bas
 - Un `Buyer` puede tener uno o varios pedidos y un carrito asociado.
 - `TradingStatus` indica el estado comercial del comprador.
 
----
+-----------------------------------------------------
 
 # Merchants (Resumen)
 
@@ -142,7 +130,7 @@ Representa a un comerciante o vendedor dentro del sistema. Es la entidad encarga
 - Un `Merchants` es un tipo de `User`.
 - Un `Merchants` puede gestionar varios `Producto` y `Store`.
 
----
+-----------------------------------------------------
 
 # Administrator (Resumen)
 
@@ -160,7 +148,7 @@ Representa al administrador del sistema, cuya responsabilidad es gestionar regis
 - Un `Administrator` es un tipo de `User`.
 - El administrador coordina operaciones sobre vendedores y almacenes.
 
----
+-----------------------------------------------------
 
 # InCharge (Resumen)
 
@@ -176,7 +164,7 @@ Representa a un encargado o personal operativo que consulta información del sis
 ## Relaciones
 - Un `InCharge` es un tipo de `User`.
 
----
+-----------------------------------------------------
 
 # LogisticsP (Resumen)
 
@@ -194,7 +182,7 @@ Representa la parte logística del sistema. Se encarga de la preparación y segu
 - Un `LogisticsP` es un tipo de `User`.
 - Se relaciona con `Delivery` y `Order`.
 
----
+-----------------------------------------------------
 
 # Store (Resumen)
 
@@ -214,8 +202,7 @@ Representa una bodega o almacén donde se almacenan y gestionan los productos de
 - Un `Store` pertenece a `Merchants`.
 - Una tienda puede tener varios `Inventory`.
 
----
-
+-----------------------------------------------------
 # Producto (Resumen)
 
 ## Descripción
@@ -234,7 +221,7 @@ Representa un producto disponible para venta dentro del comercio.
 - Un `Producto` pertenece a `Merchants`.
 - `ProductType` define la categoría comercial del producto.
 
----
+-----------------------------------------------------
 
 # Inventory (Resumen)
 
@@ -257,7 +244,7 @@ Representa el inventario asociado a una bodega o tienda, con el control del stoc
 - `Inventory` pertenece a `Store`.
 - `InventoryStatus` define si hay stock, poco stock o agotado.
 
----
+-----------------------------------------------------
 
 # Order (Resumen)
 
@@ -280,7 +267,7 @@ Representa un pedido generado por un comprador del sistema.
 - Un pedido puede generar una `Bill`, una `Return` y una `Delivery`.
 - `OrderStatus` describe el flujo del pedido.
 
----
+-----------------------------------------------------
 
 # Cart (Resumen)
 
@@ -298,7 +285,7 @@ Representa el carrito de compras del cliente antes de confirmarlo como pedido.
 ## Relaciones
 - Un `Cart` pertenece a `Buyer`.
 
----
+-----------------------------------------------------
 
 # Address (Resumen)
 
@@ -316,7 +303,7 @@ Representa la dirección asociada al comprador o a un lugar del dominio comercia
 ## Relaciones
 - `Address` está asociada a `Buyer`.
 
----
+-----------------------------------------------------
 
 # Bill (Resumen)
 
@@ -336,7 +323,7 @@ Representa la factura generada para un pedido específico.
 ## Relaciones
 - `Bill` pertenece a `Order`.
 
----
+-----------------------------------------------------
 
 # Return (Resumen)
 
@@ -355,7 +342,7 @@ Representa la solicitud de devolución vinculada a un pedido.
 - `Return` se especializa en `Order`.
 - Puede derivar en un `Refund`.
 
----
+-----------------------------------------------------
 
 # Refund (Resumen)
 
@@ -373,7 +360,7 @@ Representa un reembolso asociado a una solicitud de devolución.
 ## Relaciones
 - `Refund` hereda de `Return`.
 
----
+-----------------------------------------------------
 
 # Delivery (Resumen)
 
@@ -394,7 +381,7 @@ Representa la entrega del pedido al cliente final.
 - `Delivery` pertenece a `Order`.
 - `DeliveryStatus` define el progreso del envío.
 
----
+-----------------------------------------------------
 
 # Enums del dominio
 
@@ -436,21 +423,5 @@ Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
 ### DeliveryStatus
 - Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
 
-## Observaciones
-
-- El proyecto está en una etapa inicial de modelado de dominio.
-- Muchas clases contienen métodos como placeholder o vacíos, por lo que aún falta la lógica de negocio real.
-- Se han definido enums para evitar el uso de cadenas sueltas para estados y tipos.
-- La estructura está pensada para crecer hacia controladores, servicios, repositorios y entidades JPA/NoSQL.
-
-## Próximos pasos recomendados
-
-1. Definir la persistencia real con entidades JPA o MongoDB.
-2. Implementar los métodos vacíos de cada clase con lógica de negocio.
-3. Añadir repositorios, servicios y controladores REST.
-4. Configurar la conexión a base de datos y variables de entorno.
-5. Crear pruebas unitarias e integradas para validar cada flujo.
-
-## Licencia
-
+-----------------------------------------------------
 Proyecto de aprendizaje/desarrollo académico para la asignatura de construcción II.
