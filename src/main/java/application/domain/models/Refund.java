@@ -9,14 +9,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Refund extends Return {
-    
+
     private long id;
     private String reason;
     private float amount;
-
+    private Order order;
 
     public void confirm() {
-        
-    }   
-    
+
+    }
+
 }

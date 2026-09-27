@@ -383,26 +383,6 @@ Representa la entrega del pedido al cliente final.
 
 -----------------------------------------------------
 
-# Enums del dominio
-
-## UserStatus
-Valores: ACTIVE, INACTIVE, BLOCKED
-
-## TradingStatus
-Valores: ACTIVE, PENDING_APPROVAL, SUSPENDED, BLOCKED
-
-## ProductType
-Valores: ELECTRONICS, HOME, CLOTHING, FOOD, BEAUTY, SPORTS, OTHER
-
-## InventoryStatus
-Valores: AVAILABLE, LOW_STOCK, OUT_OF_STOCK, RESERVED
-
-## OrderStatus
-Valores: PENDING, CONFIRMED, IN_PREPARATION, SHIPPED, DELIVERED, CANCELLED
-
-## DeliveryStatus
-Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
-
 ## Enums del dominio
 
 ### UserStatus
@@ -424,4 +404,128 @@ Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
 - Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
 
 -----------------------------------------------------
-Proyecto de aprendizaje/desarrollo académico para la asignatura de construcción II.
+
+
+## Arquitectura actual
+
+El proyecto utiliza una separación sencilla por capas dentro del paquete `application`:
+
+- `domain/models`: clases que representan los conceptos del marketplace. Varias son abstractas y usan Lombok (`@Getter`, `@Setter` y `@NoArgsConstructor`) para generar acceso a sus atributos.
+- `domain/ports`: interfaces que definen las operaciones de persistencia disponibles para cada agregado.
+- `domain/services`: implementaciones Spring de los puertos. Actualmente almacenan los objetos en listas en memoria y generan identificadores consecutivos.
+- `infrastructure/controllers`: endpoints HTTP expuestos por la aplicación.
+- `domain/models/enums`: estados y categorías usados por el modelo.
+- `domain/valueObjects`: contiene otra enumeración `UserStatus`; debe mantenerse alineada con `domain/models/enums/UserStatus` o eliminarse para evitar duplicidad.
+
+-----------------------------------------------------
+
+### Puertos
+
+Los puertos son interfaces del dominio que definen las operaciones disponibles para cada tipo de objeto. No contienen la implementación ni almacenan datos.
+
+1. **`UserPort`**: define el CRUD de usuarios mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+2. **`CartPort`**: define el CRUD de carritos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+3. **`DeliveryPort`**: define las operaciones `save`, `findById` y `findAll` para entregas.
+4. **`InventoryPort`**: define el CRUD de inventarios mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+5. **`OrderPort`**: define el CRUD de pedidos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+6. **`ProductoPort`**: define las operaciones `save`, `findById` y `findAll` para productos.
+7. **`RefundPort`**: define el CRUD de reembolsos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+
+-----------------------------------------------------
+
+### Servicios
+
+Los servicios implementan los puertos y están registrados como componentes Spring mediante `@Service`. Actualmente usan una `List` independiente por servicio, por lo que funcionan como almacenamiento temporal en memoria.
+
+1. **`UserService`**: implementa `UserPort` y administra usuarios.
+2. **`CartService`**: implementa `CartPort` y administra carritos.
+3. **`DeliveryService`**: implementa `DeliveryPort` y administra entregas. Solo expone guardado y consultas; no implementa actualización ni eliminación.
+4. **`InventoryService`**: implementa `InventoryPort` y administra inventarios.
+5. **`OrderService`**: implementa `OrderPort` y administra pedidos.
+6. **`ProductoService`**: implementa `ProductoPort` y administra productos. Solo expone guardado y consultas; no implementa actualización ni eliminación.
+7. **`RefundService`**: implementa `RefundPort` y administra reembolsos.
+
+-----------------------------------------------------
+
+#### Comportamiento común de los servicios
+
+- `save` rechaza valores `null` con `IllegalArgumentException`.
+- Si el objeto tiene `id == 0`, `save` asigna un identificador consecutivo.
+- Si ya existe un objeto con el mismo identificador, `save` lo reemplaza.
+- `findById` devuelve un `Optional`.
+- `findAll` devuelve una copia de la lista interna.
+- `update` reutiliza la lógica de `save` en los servicios que la implementan.
+- `deleteById` elimina por identificador y no falla si el identificador no existe.
+- Los datos se pierden al reiniciar la aplicación porque todavía no se utilizan repositorios de base de datos.
+
+En los servicios, `save` rechaza valores `null`, asigna un identificador cuando el objeto tiene `id == 0` y reemplaza otro objeto que tenga el mismo identificador. `findById` devuelve un `Optional`, `findAll` devuelve una copia de la lista y `deleteById` no falla si el identificador no existe. Esta persistencia se pierde al reiniciar la aplicación.
+
+-----------------------------------------------------
+
+## API disponible
+
+La aplicación solo tiene actualmente un endpoint HTTP:
+
+```http
+GET http://localhost:8081/api/health
+```
+
+Respuesta esperada:
+
+```json
+{
+	"status": "UP",
+	"service": "bank2",
+	"port": "8081"
+}
+```
+
+No existen todavía controladores REST para usuarios, productos, carritos, pedidos, inventarios, entregas o reembolsos. Los servicios pueden ser inyectados por Spring, pero no están expuestos como API pública.
+
+-----------------------------------------------------
+
+## Configuración y dependencias
+
+- Java 17.
+- Spring Boot `4.1.1`.
+- Spring Web para el endpoint de salud.
+- Spring Data JPA, MySQL y H2 configurados como soporte de persistencia.
+- Spring Data MongoDB incluido como dependencia.
+- Spring Security incluido como dependencia, sin configuración de autenticación propia documentada en el código actual.
+- Lombok para reducir código repetitivo en los modelos.
+
+En `src/main/resources/application.properties`, la aplicación se llama `bank2`, escucha en el puerto `8081` y configura una base H2 en memoria llamada `bank2db`. Aunque H2/JPA están configurados, los servicios actuales no utilizan repositorios JPA ni MongoDB; trabajan exclusivamente con listas en memoria.
+
+-----------------------------------------------------
+
+## Ejecución
+
+En Windows:
+
+```bash
+./mvnw.cmd spring-boot:run
+```
+
+En Linux o macOS:
+
+```bash
+./mvnw spring-boot:run
+```
+
+La aplicación quedará disponible en `http://localhost:8081`. Para comprobar el estado:
+
+```bash
+curl http://localhost:8081/api/health
+```
+
+-----------------------------------------------------
+
+## Pruebas
+
+El proyecto incluye `Bank2ApplicationTests`, que verifica que el contexto de Spring pueda iniciarse correctamente. No hay pruebas unitarias para los servicios CRUD ni pruebas de integración para el endpoint `/api/health`.
+
+Para ejecutar las pruebas:
+
+```bash
+./mvnw.cmd test
+```
