@@ -1,3 +1,4 @@
+//TIPO DE PRODUCTO
 package application.domain.models.enums;
 
 public enum ProductType {

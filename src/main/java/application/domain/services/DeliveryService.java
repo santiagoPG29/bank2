@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE ENTREGAS
 package application.domain.services;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import application.domain.models.Delivery;
-import application.domain.models.enums.DeliveryStatus;
 import application.domain.ports.DeliveryPort;
 
 @Service
@@ -18,7 +18,7 @@ public class DeliveryService implements DeliveryPort {
     @Override
     public Delivery save(Delivery delivery) {
         if (delivery == null) {
-            throw new IllegalArgumentException("Delivery cannot be null");
+            throw new IllegalArgumentException("La entrega no puede ser nula");
         }
         if (delivery.getId() == 0) {
             delivery.setId(sequence++);
@@ -46,11 +46,5 @@ public class DeliveryService implements DeliveryPort {
     @Override
     public void deleteById(Long id) {
         deliveries.removeIf(delivery -> delivery.getId() == id);
-    }
-
-    @Override
-    public void confirmDelivery(Long deliveryId) {
-        Delivery delivery = findById(deliveryId).orElseThrow(() -> new IllegalArgumentException("Delivery not found"));
-        delivery.setDeliveryStatus(DeliveryStatus.DELIVERED);
     }
 }

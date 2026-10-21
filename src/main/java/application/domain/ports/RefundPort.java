@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE REEMBOLSOS
 package application.domain.ports;
 
 import java.util.List;
@@ -11,6 +12,4 @@ public interface RefundPort {
     List<Refund> findAll();
     Refund update(Refund refund);
     void deleteById(Long id);
-    void approve(Long refundId);
-    void decline(Long refundId);
 }

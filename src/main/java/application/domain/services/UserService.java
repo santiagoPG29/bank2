@@ -17,7 +17,7 @@ public class UserService implements UserPort {
     @Override
     public User save(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
         }
         if (user.getId() == 0) {
             user.setId(sequence++);

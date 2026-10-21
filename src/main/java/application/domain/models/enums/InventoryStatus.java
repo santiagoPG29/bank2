@@ -1,3 +1,4 @@
+//ESTADO DE INVENTARIO
 package application.domain.models.enums;
 
 public enum InventoryStatus {

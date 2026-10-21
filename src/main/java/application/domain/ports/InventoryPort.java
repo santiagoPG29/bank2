@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DEL INVENTARIO
 package application.domain.ports;
 
 import java.util.List;
@@ -11,7 +12,4 @@ public interface InventoryPort {
     List<Inventory> findAll();
     Inventory update(Inventory inventory);
     void deleteById(Long id);
-    void increaseStock(Long inventoryId, int quantity);
-    void decreaseStock(Long inventoryId, int quantity);
-    boolean hasStock(Long inventoryId, int quantity);
 }

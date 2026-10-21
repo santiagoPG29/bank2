@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE REEMBOLSOS
 package application.domain.services;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import application.domain.models.Refund;
-import application.domain.models.enums.OrderStatus;
 import application.domain.ports.RefundPort;
 
 @Service
@@ -18,7 +18,7 @@ public class RefundService implements RefundPort {
     @Override
     public Refund save(Refund refund) {
         if (refund == null) {
-            throw new IllegalArgumentException("Refund cannot be null");
+            throw new IllegalArgumentException("El reembolso no puede ser nulo.");
         }
         if (refund.getId() == 0) {
             refund.setId(sequence++);
@@ -46,18 +46,5 @@ public class RefundService implements RefundPort {
     @Override
     public void deleteById(Long id) {
         refunds.removeIf(refund -> refund.getId() == id);
-    }
-
-    @Override
-    public void approve(Long refundId) {
-        Refund refund = findById(refundId).orElseThrow(() -> new IllegalArgumentException("Refund not found"));
-        refund.getOrder().setStatus(OrderStatus.CANCELLED);
-        refund.setReason("Approved");
-    }
-
-    @Override
-    public void decline(Long refundId) {
-        Refund refund = findById(refundId).orElseThrow(() -> new IllegalArgumentException("Refund not found"));
-        refund.setReason("Declined");
     }
 }

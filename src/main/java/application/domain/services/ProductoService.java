@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE PRODUCTOS
 package application.domain.services;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ProductoService implements ProductoPort {
     @Override
     public Producto save(Producto producto) {
         if (producto == null) {
-            throw new IllegalArgumentException("Producto cannot be null");
+            throw new IllegalArgumentException("El producto no puede ser nulo");
         }
         if (producto.getId() == 0) {
             producto.setId(sequence++);

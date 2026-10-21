@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE PRODUCTOS
 package application.domain.ports;
 
 import java.util.List;

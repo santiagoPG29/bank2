@@ -1,4 +1,6 @@
+//ESTADO DE ENTREGA
 package application.domain.models.enums;
+
 
 public enum DeliveryStatus {
     PENDING,

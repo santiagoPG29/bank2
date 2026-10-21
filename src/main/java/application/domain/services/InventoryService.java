@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE INVENTARIO
 package application.domain.services;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class InventoryService implements InventoryPort {
     @Override
     public Inventory save(Inventory inventory) {
         if (inventory == null) {
-            throw new IllegalArgumentException("Inventory cannot be null");
+            throw new IllegalArgumentException("El inventario no puede ser nulo");
         }
         if (inventory.getId() == 0) {
             inventory.setId(sequence++);
@@ -45,33 +46,5 @@ public class InventoryService implements InventoryPort {
     @Override
     public void deleteById(Long id) {
         inventories.removeIf(inventory -> inventory.getId() == id);
-    }
-
-    @Override
-    public void increaseStock(Long inventoryId, int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive");
-        }
-        Inventory inventory = findById(inventoryId).orElseThrow(() -> new IllegalArgumentException("Inventory not found"));
-        inventory.setQuantity(inventory.getQuantity() + quantity);
-    }
-
-    @Override
-    public void decreaseStock(Long inventoryId, int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive");
-        }
-        Inventory inventory = findById(inventoryId).orElseThrow(() -> new IllegalArgumentException("Inventory not found"));
-        if (inventory.getQuantity() < quantity) {
-            throw new IllegalStateException("Not enough stock available");
-        }
-        inventory.setQuantity(inventory.getQuantity() - quantity);
-    }
-
-    @Override
-    public boolean hasStock(Long inventoryId, int quantity) {
-        return findById(inventoryId)
-                .map(inventory -> inventory.getQuantity() >= quantity)
-                .orElse(false);
     }
 }

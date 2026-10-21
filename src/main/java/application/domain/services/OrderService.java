@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE PEDIDOS
 package application.domain.services;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class OrderService implements OrderPort {
     @Override
     public Order save(Order order) {
         if (order == null) {
-            throw new IllegalArgumentException("Order cannot be null");
+            throw new IllegalArgumentException("La orden no puede ser nula");
         }
         if (order.getId() == 0) {
             order.setId(sequence++);

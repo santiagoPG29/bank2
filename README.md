@@ -27,37 +27,69 @@ bank2/
 │   │   ├── java/
 │   │   │   └── application/
 │   │   │       ├── Bank2Application.java
-│   │   │       └── domain/
-│   │   │           └── models/
-│   │   │               ├── Address.java
-│   │   │               ├── Administrator.java
-│   │   │               ├── Bill.java
-│   │  │               ├── Buyer.java
-│   │  │               ├── Cart.java
-│   │  │               ├── Delivery.java
-│   │  │               ├── InCharge.java
-│   │  │               ├── Inventory.java
-│   │  │               ├── LogisticsP.java
-│   │  │               ├── Merchants.java
-│   │  │               ├── Order.java
-│   │  │               ├── Producto.java
-│   │  │               ├── Refund.java
-│   │  │               ├── Return.java
-│   │  │               ├── Store.java
-│   │  │               ├── User.java
-│   │  │               └── enums/
-│   │  │                   ├── DeliveryStatus.java
-│   │  │                   ├── InventoryStatus.java
-│   │  │                   ├── OrderStatus.java
-│   │  │                   ├── ProductType.java
-│   │  │                   ├── TradingStatus.java
-│   │  │                   └── UserStatus.java
-│   │  └── resources/
+│   │   │       ├── domain/
+│   │   │       │   ├── models/
+│   │   │       │   │   ├── Address.java
+│   │   │       │   │   ├── Administrator.java
+│   │   │       │   │   ├── Bill.java
+│   │   │       │   │   ├── Buyer.java
+│   │   │       │   │   ├── Cart.java
+│   │   │       │   │   ├── Delivery.java
+│   │   │       │   │   ├── InCharge.java
+│   │   │       │   │   ├── Inventory.java
+│   │   │       │   │   ├── LogisticsP.java
+│   │   │       │   │   ├── Merchants.java
+│   │   │       │   │   ├── Order.java
+│   │   │       │   │   ├── Producto.java
+│   │   │       │   │   ├── Refund.java
+│   │   │       │   │   ├── Return.java
+│   │   │       │   │   ├── Store.java
+│   │   │       │   │   ├── User.java
+│   │   │       │   │   └── enums/
+│   │   │       │   │       ├── DeliveryStatus.java
+│   │   │       │   │       ├── InventoryStatus.java
+│   │   │       │   │       ├── OrderStatus.java
+│   │   │       │   │       ├── ProductType.java
+│   │   │       │   │       ├── TradingStatus.java
+│   │   │       │   │       └── UserStatus.java
+│   │   │       │   ├── ports/
+│   │   │       │   │   ├── CartPort.java
+│   │   │       │   │   ├── CartProductPort.java
+│   │   │       │   │   ├── DeliveryConfirmationPort.java
+│   │   │       │   │   ├── DeliveryPort.java
+│   │   │       │   │   ├── InventoryPort.java
+│   │   │       │   │   ├── InventoryStockPort.java
+│   │   │       │   │   ├── OrderPort.java
+│   │   │       │   │   ├── ProductoPort.java
+│   │   │       │   │   ├── RefundDecisionPort.java
+│   │   │       │   │   ├── RefundPort.java
+│   │   │       │   │   ├── UserPort.java
+│   │   │       │   ├── valueObjects/
+│   │   │       │   │   └── UserStatus.java
+│   │   │       │   └── services/
+│   │   │       │       ├── CartProductService.java
+│   │   │       │       ├── CartService.java
+│   │   │       │       ├── DeliveryConfirmationService.java
+│   │   │       │       ├── DeliveryService.java
+│   │   │       │       ├── InventoryService.java
+│   │   │       │       ├── InventoryStockService.java
+│   │   │       │       ├── OrderService.java
+│   │   │       │       ├── ProductoService.java
+│   │   │       │       ├── RefundDecisionService.java
+│   │   │       │       ├── RefundService.java
+│   │   │       │       └── UserService.java
+│   │   │       └── infrastructure/
+│   │   │           └── controllers/
+│   │   │               └── HealthController.java
+│   │   └── resources/
 │   │       └── application.properties
 │   └── test/
 │       └── java/
 │           └── application/
-│               └── Bank2ApplicationTests.java
+│               ├── Bank2ApplicationTests.java
+│               └── domain/
+│                   └── services/
+│                       └── DomainCommandServicesTest.java
 ├── .gitignore
 ├── HELP.md
 ├── pom.xml
@@ -66,10 +98,11 @@ bank2/
 ├── README.md
 └── target/
 ```
+-----------------------------------------------------
 
 ## Descripción de las clases principales
 
-# User (Resumen)
+# User - Usuario
 
 ## Descripción
 Representa a cualquier usuario registrado dentro del sistema de comercio. Esta clase centraliza la información común de identificación, contacto y estado que comparten los distintos tipos de usuarios del dominio.
@@ -92,7 +125,7 @@ Representa a cualquier usuario registrado dentro del sistema de comercio. Esta c
 
 -----------------------------------------------------
 
-# Buyer (Resumen)
+# Buyer - Comprador
 
 ## Descripción
 Representa al cliente comprador dentro del sistema. Extiende la información base del usuario para incluir datos de compra y comportamiento comercial.
@@ -114,7 +147,7 @@ Representa al cliente comprador dentro del sistema. Extiende la información bas
 
 -----------------------------------------------------
 
-# Merchants (Resumen)
+# Merchants - Comerciante
 
 ## Descripción
 Representa a un comerciante o vendedor dentro del sistema. Es la entidad encargada de relacionar productos y bodegas con las operaciones comerciales.
@@ -132,7 +165,7 @@ Representa a un comerciante o vendedor dentro del sistema. Es la entidad encarga
 
 -----------------------------------------------------
 
-# Administrator (Resumen)
+# Administrator - Administrador
 
 ## Descripción
 Representa al administrador del sistema, cuya responsabilidad es gestionar registros clave del negocio.
@@ -150,7 +183,7 @@ Representa al administrador del sistema, cuya responsabilidad es gestionar regis
 
 -----------------------------------------------------
 
-# InCharge (Resumen)
+# InCharge - Encargado
 
 ## Descripción
 Representa a un encargado o personal operativo que consulta información del sistema para apoyar la gestión.
@@ -166,7 +199,7 @@ Representa a un encargado o personal operativo que consulta información del sis
 
 -----------------------------------------------------
 
-# LogisticsP (Resumen)
+# LogisticsP - Personal de logística
 
 ## Descripción
 Representa la parte logística del sistema. Se encarga de la preparación y seguimiento del envío de pedidos.
@@ -184,7 +217,7 @@ Representa la parte logística del sistema. Se encarga de la preparación y segu
 
 -----------------------------------------------------
 
-# Store (Resumen)
+# Store - Bodega
 
 ## Descripción
 Representa una bodega o almacén donde se almacenan y gestionan los productos del sistema.
@@ -203,7 +236,7 @@ Representa una bodega o almacén donde se almacenan y gestionan los productos de
 - Una tienda puede tener varios `Inventory`.
 
 -----------------------------------------------------
-# Producto (Resumen)
+# Producto - Producto
 
 ## Descripción
 Representa un producto disponible para venta dentro del comercio.
@@ -223,7 +256,7 @@ Representa un producto disponible para venta dentro del comercio.
 
 -----------------------------------------------------
 
-# Inventory (Resumen)
+# Inventory - Inventario
 
 ## Descripción
 Representa el inventario asociado a una bodega o tienda, con el control del stock disponible.
@@ -246,7 +279,7 @@ Representa el inventario asociado a una bodega o tienda, con el control del stoc
 
 -----------------------------------------------------
 
-# Order (Resumen)
+# Order - Pedido
 
 ## Descripción
 Representa un pedido generado por un comprador del sistema.
@@ -269,7 +302,7 @@ Representa un pedido generado por un comprador del sistema.
 
 -----------------------------------------------------
 
-# Cart (Resumen)
+# Cart - Carrito de compras
 
 ## Descripción
 Representa el carrito de compras del cliente antes de confirmarlo como pedido.
@@ -287,7 +320,7 @@ Representa el carrito de compras del cliente antes de confirmarlo como pedido.
 
 -----------------------------------------------------
 
-# Address (Resumen)
+# Address - Dirección
 
 ## Descripción
 Representa la dirección asociada al comprador o a un lugar del dominio comercial.
@@ -305,7 +338,7 @@ Representa la dirección asociada al comprador o a un lugar del dominio comercia
 
 -----------------------------------------------------
 
-# Bill (Resumen)
+# Bill - Factura
 
 ## Descripción
 Representa la factura generada para un pedido específico.
@@ -325,7 +358,7 @@ Representa la factura generada para un pedido específico.
 
 -----------------------------------------------------
 
-# Return (Resumen)
+# Return - Devolución
 
 ## Descripción
 Representa la solicitud de devolución vinculada a un pedido.
@@ -344,7 +377,7 @@ Representa la solicitud de devolución vinculada a un pedido.
 
 -----------------------------------------------------
 
-# Refund (Resumen)
+# Refund - Reembolso
 
 ## Descripción
 Representa un reembolso asociado a una solicitud de devolución.
@@ -362,7 +395,7 @@ Representa un reembolso asociado a una solicitud de devolución.
 
 -----------------------------------------------------
 
-# Delivery (Resumen)
+# Delivery - Entrega
 
 ## Descripción
 Representa la entrega del pedido al cliente final.
@@ -385,22 +418,28 @@ Representa la entrega del pedido al cliente final.
 
 ## Enums del dominio
 
-### UserStatus
+### UserStatus - Estado del usuario
+- Representa los estados posibles de una cuenta de usuario.
 - Valores: ACTIVE, INACTIVE, BLOCKED
 
-### TradingStatus
+### TradingStatus - Estado comercial
+- Indica la situación comercial de un comprador o vendedor.
 - Valores: ACTIVE, PENDING_APPROVAL, SUSPENDED, BLOCKED
 
-### ProductType
+### ProductType - Tipo de producto
+- Clasifica los productos por categoría comercial.
 - Valores: ELECTRONICS, HOME, CLOTHING, FOOD, BEAUTY, SPORTS, OTHER
 
-### InventoryStatus
+### InventoryStatus - Estado del inventario
+- Describe la disponibilidad del stock.
 - Valores: AVAILABLE, LOW_STOCK, OUT_OF_STOCK, RESERVED
 
-### OrderStatus
+### OrderStatus - Estado del pedido
+- Indica la etapa actual del ciclo de vida de un pedido.
 - Valores: PENDING, CONFIRMED, IN_PREPARATION, SHIPPED, DELIVERED, CANCELLED
 
-### DeliveryStatus
+### DeliveryStatus - Estado de la entrega
+- Indica el avance o resultado de una entrega.
 - Valores: PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
 
 -----------------------------------------------------
@@ -411,11 +450,12 @@ Representa la entrega del pedido al cliente final.
 El proyecto utiliza una separación sencilla por capas dentro del paquete `application`:
 
 - `domain/models`: clases que representan los conceptos del marketplace. Varias son abstractas y usan Lombok (`@Getter`, `@Setter` y `@NoArgsConstructor`) para generar acceso a sus atributos.
-- `domain/ports`: interfaces que definen las operaciones de persistencia disponibles para cada agregado.
-- `domain/services`: implementaciones Spring de los puertos. Actualmente almacenan los objetos en listas en memoria y generan identificadores consecutivos.
-- `infrastructure/controllers`: endpoints HTTP expuestos por la aplicación.
+- `Bank2Application` (Aplicación principal): inicia el contexto de Spring Boot y pone en marcha el backend.
+- `domain/ports`: interfaces que definen las operaciones CRUD y las acciones de dominio disponibles para cada agregado.
+- `domain/services`: servicios Spring que implementan esos puertos. Los servicios CRUD almacenan objetos en listas en memoria y generan identificadores consecutivos; los servicios de comandos ejecutan acciones de dominio mediante los puertos CRUD correspondientes.
+- `infrastructure/controllers`: contiene `HealthController` (Controlador de estado), que expone el endpoint para comprobar la salud del backend.
 - `domain/models/enums`: estados y categorías usados por el modelo.
-- `domain/valueObjects`: contiene otra enumeración `UserStatus`; debe mantenerse alineada con `domain/models/enums/UserStatus` o eliminarse para evitar duplicidad.
+- `domain/valueObjects`: contiene `UserStatus` (Estado del usuario), una enumeración duplicada respecto a `domain/models/enums/UserStatus`.
 
 -----------------------------------------------------
 
@@ -423,27 +463,35 @@ El proyecto utiliza una separación sencilla por capas dentro del paquete `appli
 
 Los puertos son interfaces del dominio que definen las operaciones disponibles para cada tipo de objeto. No contienen la implementación ni almacenan datos.
 
-1. **`UserPort`**: define el CRUD de usuarios mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
-2. **`CartPort`**: define el CRUD de carritos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
-3. **`DeliveryPort`**: define las operaciones `save`, `findById` y `findAll` para entregas.
-4. **`InventoryPort`**: define el CRUD de inventarios mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
-5. **`OrderPort`**: define el CRUD de pedidos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
-6. **`ProductoPort`**: define las operaciones `save`, `findById` y `findAll` para productos.
-7. **`RefundPort`**: define el CRUD de reembolsos mediante `save`, `findById`, `findAll`, `update` y `deleteById`.
+1. **`UserPort` (Puerto de usuarios)**: define las operaciones para registrar, consultar, actualizar y eliminar usuarios.
+2. **`CartPort` (Puerto de carritos)**: define las operaciones para registrar, consultar, actualizar y eliminar carritos.
+3. **`DeliveryPort` (Puerto de entregas)**: define las operaciones para registrar, consultar, actualizar y eliminar entregas.
+4. **`InventoryPort` (Puerto de inventarios)**: define las operaciones para registrar, consultar, actualizar y eliminar inventarios.
+5. **`OrderPort` (Puerto de pedidos)**: define las operaciones para registrar, consultar, actualizar y eliminar pedidos.
+6. **`ProductoPort` (Puerto de productos)**: define las operaciones para registrar, consultar, actualizar y eliminar productos.
+7. **`RefundPort` (Puerto de reembolsos)**: define las operaciones para registrar, consultar, actualizar y eliminar reembolsos.
+8. **`CartProductPort` (Puerto de productos del carrito)**: define las acciones para agregar, quitar o vaciar productos del carrito.
+9. **`DeliveryConfirmationPort` (Puerto de confirmación de entrega)**: define la acción que confirma que una entrega se completó.
+10. **`InventoryStockPort` (Puerto de existencias)**: define las acciones para aumentar, disminuir y consultar el stock.
+11. **`RefundDecisionPort` (Puerto de decisión de reembolso)**: define las acciones para aprobar o rechazar un reembolso.
 
 -----------------------------------------------------
 
 ### Servicios
 
-Los servicios implementan los puertos y están registrados como componentes Spring mediante `@Service`. Actualmente usan una `List` independiente por servicio, por lo que funcionan como almacenamiento temporal en memoria.
+Los servicios están registrados como componentes Spring mediante `@Service`. Los servicios CRUD implementan los puertos de persistencia y usan una `List` independiente, por lo que funcionan como almacenamiento temporal en memoria. Los servicios de comandos implementan puertos específicos para acciones de dominio y consultan los servicios CRUD correspondientes.
 
-1. **`UserService`**: implementa `UserPort` y administra usuarios.
-2. **`CartService`**: implementa `CartPort` y administra carritos.
-3. **`DeliveryService`**: implementa `DeliveryPort` y administra entregas. Solo expone guardado y consultas; no implementa actualización ni eliminación.
-4. **`InventoryService`**: implementa `InventoryPort` y administra inventarios.
-5. **`OrderService`**: implementa `OrderPort` y administra pedidos.
-6. **`ProductoService`**: implementa `ProductoPort` y administra productos. Solo expone guardado y consultas; no implementa actualización ni eliminación.
-7. **`RefundService`**: implementa `RefundPort` y administra reembolsos.
+1. **`UserService` (Servicio de usuarios)**: implementa `UserPort` y administra los registros de usuarios.
+2. **`CartService` (Servicio de carritos)**: implementa `CartPort` y administra los registros de carritos.
+3. **`DeliveryService` (Servicio de entregas)**: implementa `DeliveryPort` y administra los registros de entregas.
+4. **`InventoryService` (Servicio de inventarios)**: implementa `InventoryPort` y administra los registros de inventario.
+5. **`OrderService` (Servicio de pedidos)**: implementa `OrderPort` y administra los registros de pedidos.
+6. **`ProductoService` (Servicio de productos)**: implementa `ProductoPort` y administra los registros de productos.
+7. **`RefundService` (Servicio de reembolsos)**: implementa `RefundPort` y administra los registros de reembolsos.
+8. **`CartProductService` (Servicio de productos del carrito)**: implementa `CartProductPort` y agrega, elimina o quita todos los productos de un carrito. Usa `CartPort` para localizarlo y rechaza productos nulos o carritos inexistentes.
+9. **`DeliveryConfirmationService` (Servicio de confirmación de entrega)**: implementa `DeliveryConfirmationPort` y cambia el estado de una entrega existente a `DELIVERED`.
+10. **`InventoryStockService` (Servicio de existencias)**: implementa `InventoryStockPort` y aumenta, disminuye o consulta el stock. Rechaza cantidades no positivas y evita disminuir por debajo del stock disponible.
+11. **`RefundDecisionService` (Servicio de decisión de reembolso)**: implementa `RefundDecisionPort` y aprueba o rechaza reembolsos. Al aprobar, marca como cancelado el pedido asociado y actualiza el motivo de la decisión.
 
 -----------------------------------------------------
 
@@ -454,13 +502,22 @@ Los servicios implementan los puertos y están registrados como componentes Spri
 - Si ya existe un objeto con el mismo identificador, `save` lo reemplaza.
 - `findById` devuelve un `Optional`.
 - `findAll` devuelve una copia de la lista interna.
-- `update` reutiliza la lógica de `save` en los servicios que la implementan.
+- `update` reutiliza la lógica de `save` en los servicios CRUD que la implementan.
 - `deleteById` elimina por identificador y no falla si el identificador no existe.
 - Los datos se pierden al reiniciar la aplicación porque todavía no se utilizan repositorios de base de datos.
+
+Los servicios de comandos no administran listas ni identificadores: reciben el puerto CRUD correspondiente por inyección de dependencias y aplican una acción de dominio sobre el objeto encontrado.
 
 En los servicios, `save` rechaza valores `null`, asigna un identificador cuando el objeto tiene `id == 0` y reemplaza otro objeto que tenga el mismo identificador. `findById` devuelve un `Optional`, `findAll` devuelve una copia de la lista y `deleteById` no falla si el identificador no existe. Esta persistencia se pierde al reiniciar la aplicación.
 
 -----------------------------------------------------
+
+### Aplicación, controlador y pruebas
+
+- **`Bank2Application` (Aplicación principal)**: inicia la aplicación Spring Boot.
+- **`HealthController` (Controlador de estado)**: responde a las solicitudes de comprobación de salud en `/api/health`.
+- **`Bank2ApplicationTests` (Prueba de inicio de la aplicación)**: comprueba que el contexto de Spring Boot cargue correctamente.
+- **`DomainCommandServicesTest` (Prueba de servicios de comandos)**: comprueba las operaciones de productos del carrito, confirmación de entrega, stock y decisiones de reembolso.
 
 ## API disponible
 
@@ -522,7 +579,7 @@ curl http://localhost:8081/api/health
 
 ## Pruebas
 
-El proyecto incluye `Bank2ApplicationTests`, que verifica que el contexto de Spring pueda iniciarse correctamente. No hay pruebas unitarias para los servicios CRUD ni pruebas de integración para el endpoint `/api/health`.
+El proyecto incluye `Bank2ApplicationTests` (Prueba de inicio de la aplicación), que comprueba que el contexto de Spring Boot cargue correctamente, y `DomainCommandServicesTest` (Prueba de servicios de comandos), que comprueba las operaciones de carrito, entrega, inventario y reembolso. No hay pruebas unitarias para los servicios CRUD ni pruebas de integración para el endpoint `/api/health`.
 
 Para ejecutar las pruebas:
 

@@ -1,3 +1,4 @@
+//PUERTO PARA EL MANEJO DE ENTREGAS
 package application.domain.ports;
 
 import java.util.List;
@@ -11,5 +12,4 @@ public interface DeliveryPort {
     List<Delivery> findAll();
     Delivery update(Delivery delivery);
     void deleteById(Long id);
-    void confirmDelivery(Long deliveryId);
 }

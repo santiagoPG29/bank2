@@ -1,3 +1,4 @@
+//ESTADO DE TRANSACCION
 package application.domain.models.enums;
 
 public enum TradingStatus {
